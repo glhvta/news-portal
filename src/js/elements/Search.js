@@ -8,12 +8,10 @@ class Search {
     this._searchButton = document.getElementById("search-btn");
     this._searchResults = document.getElementById('search-results');
 
-    this.getNews = this.getNews.bind(this);
     this._searchButton.addEventListener("click", this.getNews);
   }
 
-  //show babel settings to allow arrow functions
-  getNews(e) {
+  getNews = e => {
     const inputText = this._searchInput.value;
     console.log("input value", inputText);
 

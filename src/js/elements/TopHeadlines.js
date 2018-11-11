@@ -1,19 +1,18 @@
 import { TOP_HEADLINES } from "../constants/request";
-import Request from '../Request';
+import Request from "../Request";
 
 class TopHeadlines {
   constructor() {
-    this._node = document.getElementById('top-headlines');
+    this._node = document.getElementById("top-headlines");
     this.getArticles();
   }
 
   getArticles() {
-    new Request(TOP_HEADLINES)
-      .send()
-      .then(this.render);
+    new Request(TOP_HEADLINES).send().then(this.render);
   }
 
-  render(articles) {
+  render = ({ articles }) => {
+    console.log(articles);
     const innerHTML = articles.reduce((acc, article) => acc + `
       <li class="top-headlines-item">
         <div class="article-content">
@@ -28,7 +27,10 @@ class TopHeadlines {
       </li>
     `, ``);
 
-    this._node.insertAdjacentHTML('beforeend', `<ul class="top-headlines-container">${innerHTML}</ul>`);
+    this._node.insertAdjacentHTML(
+      "beforeend",
+      `<ul class="top-headlines-container">${innerHTML}</ul>`
+    );
   }
 }
 

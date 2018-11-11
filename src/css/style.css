@@ -50,11 +50,11 @@ ol {
   grid-row: auto /span 2;
 } */
 
-.top-headlines:nth-child(6n+1) {
+.top-headlines-item:nth-child(6n+1) {
   grid-row: auto / span 2;
 }
 
-.top-headlines:nth-child(6n+6) {
+.top-headlines-item:nth-child(6n+6) {
   grid-column: auto / span 2;
 }
 
