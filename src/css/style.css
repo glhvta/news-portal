@@ -1,6 +1,8 @@
 body {
   font-family: "Lato", sans-serif;
+  padding: 40px;
 }
+
 ul,
 ol {
   margin: 0;
@@ -10,6 +12,16 @@ ol {
 .nav {
   display: flex;
   justify-content: center;
+  height: 40px;
+  position: fixed;
+  top: 0;
+  transition: top 0.2s ease-in-out;
+  width: 100%;
+  background-color: white;
+}
+
+.nav-hidden {
+  top: -40px;
 }
 
 .nav-list {
@@ -21,6 +33,7 @@ ol {
   list-style: none;
   padding: 10px;
   margin: 0 10px;
+  text-transform: capitalize;
 }
 
 .nav-list-item:hover {

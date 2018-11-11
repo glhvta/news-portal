@@ -12,7 +12,6 @@ class TopHeadlines {
   }
 
   render = ({ articles }) => {
-    console.log(articles);
     const innerHTML = articles.reduce((acc, article, i) => acc + `
       <li class="top-headlines-item">
         <div class="top-article-text">
@@ -21,18 +20,15 @@ class TopHeadlines {
           <p class="article-description">${article.content}</p>
           <p class="article-date">${article.publishedAt}</p>
         </div>
-        ${i % 3 === 0 ? 
+        ${i % 3 === 0 ?
           `<div class="top-article-image">
             <img src=${article.urlToImage} onerror='console.log(this)'/>
           </div>` : ''}
       </li>
     `, ``);
 
-    this.node.insertAdjacentHTML(
-      "beforeend",
-      `<ul class="top-headlines-container">${innerHTML}</ul>`
-    );
-  }
+    this.node.innerHTML = `<ul class="top-headlines-container">${innerHTML}</ul>`;
+  };
 }
 
-export default TopHeadlines;
+export default new TopHeadlines();
