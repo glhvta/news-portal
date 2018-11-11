@@ -3,7 +3,7 @@ import Request from "../Request";
 
 class TopHeadlines {
   constructor() {
-    this._node = document.getElementById("top-headlines");
+    this.node = document.getElementById("top-headlines");
     this.getArticles();
   }
 
@@ -13,21 +13,22 @@ class TopHeadlines {
 
   render = ({ articles }) => {
     console.log(articles);
-    const innerHTML = articles.reduce((acc, article) => acc + `
+    const innerHTML = articles.reduce((acc, article, i) => acc + `
       <li class="top-headlines-item">
-        <div class="article-content">
-          <a href='${article.url}' target="_blank">${article.title}</a>
-          <p>${article.description}</p>
-          <p>${article.content}</p>
-          <p>${article.publishedAt}</p>
+        <div class="top-article-text">
+          <a class="article-title" href='${article.url}' target="_blank">${article.title}</a>
+          <p class="article-description">${article.description}</p>
+          <p class="article-description">${article.content}</p>
+          <p class="article-date">${article.publishedAt}</p>
         </div>
-        <div class="article-image">
-          <img src=${article.urlToImage}/>
-        </div>
+        ${i % 3 === 0 ? 
+          `<div class="top-article-image">
+            <img src=${article.urlToImage} onerror='console.log(this)'/>
+          </div>` : ''}
       </li>
     `, ``);
 
-    this._node.insertAdjacentHTML(
+    this.node.insertAdjacentHTML(
       "beforeend",
       `<ul class="top-headlines-container">${innerHTML}</ul>`
     );
