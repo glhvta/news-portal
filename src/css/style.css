@@ -24,6 +24,18 @@ ol {
   top: -40px;
 }
 
+.search-wrap {
+  display: flex;
+  padding: 7px;
+}
+
+.search-input {
+  display: none;
+  border: none;
+  background-color: #f2f2f2;
+  margin-right: 5px;
+}
+
 .nav-list {
   display: flex;
   margin: 0;
