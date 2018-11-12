@@ -1,10 +1,10 @@
 import "../css/style.css";
-import CategoryNews from "./elements/CategoryNews";
-import Request from "./Request";
-import { TOP_HEADLINES } from "./constants/request";
+import Navigation from "./elements/Navigation";
+import Banner from "./elements/Banner";
 import TopHeadlines from "./elements/TopHeadlines";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const categoryNews = new CategoryNews();
-  const topHeadlines = new TopHeadlines();
+  const categoryNews = new Navigation();
+  // const topHeadlines = new TopHeadlines();
+  // const banner = new Banner();
 });
