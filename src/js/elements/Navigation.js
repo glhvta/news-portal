@@ -7,21 +7,36 @@ class Navigation {
   constructor() {
     this.node = document.getElementById("category-nav");
     this.categoryNews = document.getElementById("category-news");
+    this.categoryTitle = document.getElementById("category-title");
+
+    this.currentCategory = null;
 
     window.addEventListener("scroll", this.handleScroll());
-    this.categoryNews.addEventListener("click", this.getNews);
+    this.categoryNews.addEventListener("click", this.handleClick);
   }
 
-  getNews = e => {
-    if (!e.target.classList.contains("nav-list-item")) {
+  handleClick = ({ target }) => {
+    if (!target.classList.contains("nav-list-item")) {
       return;
     }
-    const category = e.target.textContent;
 
-    new Request(TOP_HEADLINES, { category }).send().then(res => {
-      Banner.hide();
-      TopHeadlines.render(res);
-    });
+    if (this.category === target.textContent) {
+      return;
+    }
+    this.category = target.textContent;
+    this.showCategory(this.category);
+    this.getNews(this.category);
+  };
+
+  getNews = category => {
+    new Request(TOP_HEADLINES, { category }).send().then(TopHeadlines.render);
+  };
+
+  showCategory = category => {
+    Banner.hide();
+    this.categoryTitle.style.display = "block";
+    this.categoryTitle.className = `category-title ${category}-theme`;
+    this.categoryTitle.innerHTML = category;
   };
 
   handleScroll = e => {
