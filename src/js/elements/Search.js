@@ -1,5 +1,5 @@
 import Request from "../Request";
-import { EVERYTHING } from "../constants/request";
+import { EVERYTHING, Q } from "../constants/request";
 import { transformContent, transformDate } from "../utils/artilcle";
 import {
   hideElements,
@@ -47,7 +47,7 @@ class Search {
   };
 
   getNews = inputText => {
-    new Request(EVERYTHING, { q: inputText }).send().then(this.render);
+    new Request(EVERYTHING, { [Q]: inputText }).send().then(this.render);
   };
 
   hideSearchResults = () => hideElement(this.searchResults);

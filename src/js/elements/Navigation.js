@@ -1,8 +1,8 @@
-import Request from "../Request";
-import { TOP_HEADLINES } from "../constants/request";
 import Banner from "./Banner";
+import Request from "../Request";
 import TopHeadlines from "./TopHeadlines";
 import { showElement } from "../utils/dom";
+import { TOP_HEADLINES, COUNTRY, CATEGORY } from "../constants/request";
 
 class Navigation {
   constructor() {
@@ -30,14 +30,14 @@ class Navigation {
   };
 
   getNews = category => {
-    new Request(TOP_HEADLINES, { category, country: "us" })
+    new Request(TOP_HEADLINES, { [CATEGORY]: category, [COUNTRY]: "us" })
       .send()
       .then(TopHeadlines.render);
   };
 
   showCategory = category => {
     Banner.hide();
-    showElement('block')(this.categoryTitle)
+    showElement("block")(this.categoryTitle);
     this.categoryTitle.className = `category-title ${category}-theme`;
     this.categoryTitle.innerHTML = category;
   };

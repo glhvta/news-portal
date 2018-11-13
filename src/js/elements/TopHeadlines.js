@@ -1,6 +1,6 @@
-import { TOP_HEADLINES } from "../constants/request";
 import Request from "../Request";
 import { transformContent, transformDate } from '../utils/artilcle';
+import { TOP_HEADLINES, COUNTRY } from "../constants/request";
 import Search from "./Search";
 
 class TopHeadlines {
@@ -10,7 +10,7 @@ class TopHeadlines {
   }
 
   getArticles() {
-    new Request(TOP_HEADLINES, { country:'us' }).send().then(this.render);
+    new Request(TOP_HEADLINES, { [COUNTRY]: 'us' }).send().then(this.render);
   }
 
   render = ({ articles }) => {

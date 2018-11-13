@@ -7,8 +7,7 @@ const REQUEST_ENDPOINTS = {
 };
 
 class Request {
-  constructor(type, queries) { //add options with url by default
-    console.log(type,queries)
+  constructor(type, queries) {
     this.createRequestUrl(type, queries);
   }
 
@@ -19,14 +18,10 @@ class Request {
   }
 
   createQueryString(queries) {
-    // return queries.entries().reduce(
-    //   (acc, query) => `${acc}&&${query[0]}=${query[1]}`,
-    //   `?apiKey=${API_KEY}`
-    // );
     let str = `apiKey=${API_KEY}&language=en`;
-    
-    for(let key in queries) {
-      str = `${str}&${key}=${queries[key]}`
+
+    for (let key in queries) {
+      str = `${str}&${key}=${queries[key]}`;
     }
 
     return str;

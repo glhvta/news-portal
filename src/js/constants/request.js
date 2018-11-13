@@ -5,4 +5,4 @@ export const EVERYTHING = 'everything';
 
 export const COUNTRY = 'country';
 export const CATEGORY = 'category';
-export const PAGE = 'page';
+export const Q = 'q';
