@@ -1,42 +1,81 @@
-import { Request } from "../Request";
+import Request from "../Request";
 import { EVERYTHING } from "../constants/request";
-import { ShowResults } from "./SearchResults";
+import { transformContent, transformDate } from '../utils/artilcle';
 
 class Search {
   constructor() {
-    this._searchInput = document.getElementById("search-input");
-    this._searchButton = document.getElementById("search-btn");
-    this._searchResults = document.getElementById('search-results');
+    this.searchWrap = document.getElementById('search-wrap');
+    this.searchInput = document.getElementById("search-input");
+    this.searchButton = document.getElementById("search-btn");
+    this.searchCloseButton = document.getElementById("search-close-btn");
+    this.searchResults = document.getElementById('search-results');
 
-    this._searchButton.addEventListener("click", this.getNews);
+    this.searchButton.addEventListener("click", this.handleBtnClick);
+    this.searchCloseButton.addEventListener("click", this.disactivateSearch);
   }
 
-  getNews = e => {
-    const inputText = this._searchInput.value;
-    console.log("input value", inputText);
+  handleBtnClick = ({ target }) => {
+    this.activateSearch();
 
+    if(!target.dataset.active) {
+      target.dataset.active = true;
+      return;
+    }
+        
+    this.getNews(this.searchInput.value);
+  }
+
+  activateSearch = () => {
+    this.searchInput.style.display = 'block';
+    this.searchCloseButton.style.display = "block";
+    document.getElementById('category-news').style.display = "none";
+    this.searchWrap.classList.add('search-active');
+  }
+
+  disactivateSearch = () => {
+    this.searchInput.style.display = 'none';
+    this.searchCloseButton.style.display = "none";
+    document.getElementById('category-news').style.display = "flex";
+    this.searchWrap.classList.remove('search-active');
+    this.searchButton.dataset.active = false;
+    this.searchResults.innerHTML = " ";
+    this.searchInput.value = "";
+  }
+
+  getNews = inputText => {
     new Request(EVERYTHING, { q: inputText })
       .send()
-      .then(ShowResults.render)
+      .then(this.render)
   }
 
-  render(articles) {
-    const innerHTML = articles.reduce((acc, article) => acc + `
-      <li class="search-results">
-        <div class="article-content">
-          <a href='${article.url}' target="_blank">${article.title}</a>
-          <p>${article.description}</p>
-          <p>${article.content}</p>
-          <p>${article.publishedAt}</p>
+  hideSearchResults = () => {
+    this.searchResults.style.display = 'none';
+  }
+
+  showSearchResults = () => {
+    this.searchResults.style.display = 'block';
+  }
+
+  render = ({ articles }) => {
+    const innerHTML = articles.reduce((acc, article, i) => acc + `
+      <li class="search-results-item">
+        <div class="search-article-text">
+          <a class="article-title" href='${article.url}' target="_blank">
+            ${article.title || ''}
+          </a>
+          <p class="article-description">${article.description || ''}</p>
+          <p class="article-description">${transformContent(article.content)}</p>
+          <p class="article-date">${transformDate(article.publishedAt)}</p>
         </div>
         <div class="article-image">
-          <img src=${article.urlToImage}/>
-        </div>
+          <img src=${article.urlToImage} onerror='this.classList.add('image-placeholer')'/>
+        </div> 
       </li>
     `, ``);
 
-    SearchResults.node.insertAdjacentHTML('beforeend', `<ul class="top-headlines-container">${innerHTML}</ul>`);
+    this.searchResults.innerHTML = `<ul class="search-results-container">${innerHTML}</ul>`;
+    this.showSearchResults();
   }
 }
 
-export default Search;
+export default new Search();
