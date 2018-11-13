@@ -16,19 +16,27 @@ class Search {
     this.searchCloseButton = document.getElementById("search-close-btn");
     this.searchResults = document.getElementById("search-results");
 
+    this.searchQuery = null;
+
     this.searchButton.addEventListener("click", this.handleBtnClick);
     this.searchCloseButton.addEventListener("click", this.disactivateSearch);
   }
 
   handleBtnClick = ({ target }) => {
     this.activateSearch();
+    const searchQuery = this.searchInput.value;
 
     if (!target.dataset.active) {
       target.dataset.active = true;
       return;
     }
 
-    this.getNews(this.searchInput.value);
+    if(this.searchQuery === searchQuery) {
+      return;
+    }
+
+    this.searchQuery = searchQuery;
+    this.getNews(this.searchQuery);
   };
 
   activateSearch = () => {
