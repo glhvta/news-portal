@@ -1,14 +1,20 @@
 import Request from "../Request";
 import { EVERYTHING } from "../constants/request";
-import { transformContent, transformDate } from '../utils/artilcle';
+import { transformContent, transformDate } from "../utils/artilcle";
+import {
+  hideElements,
+  showElement,
+  showElements,
+  hideElement
+} from "../utils/dom";
 
 class Search {
   constructor() {
-    this.searchWrap = document.getElementById('search-wrap');
+    this.searchWrap = document.getElementById("search-wrap");
     this.searchInput = document.getElementById("search-input");
     this.searchButton = document.getElementById("search-btn");
     this.searchCloseButton = document.getElementById("search-close-btn");
-    this.searchResults = document.getElementById('search-results');
+    this.searchResults = document.getElementById("search-results");
 
     this.searchButton.addEventListener("click", this.handleBtnClick);
     this.searchCloseButton.addEventListener("click", this.disactivateSearch);
@@ -17,44 +23,36 @@ class Search {
   handleBtnClick = ({ target }) => {
     this.activateSearch();
 
-    if(!target.dataset.active) {
+    if (!target.dataset.active) {
       target.dataset.active = true;
       return;
     }
-        
+
     this.getNews(this.searchInput.value);
-  }
+  };
 
   activateSearch = () => {
-    this.searchInput.style.display = 'block';
-    this.searchCloseButton.style.display = "block";
-    document.getElementById('category-news').style.display = "none";
-    this.searchWrap.classList.add('search-active');
-  }
+    showElements("block")([this.searchInput, this.searchCloseButton]);
+    hideElement(document.getElementById("category-news"));
+    this.searchWrap.classList.add("search-active");
+  };
 
   disactivateSearch = () => {
-    this.searchInput.style.display = 'none';
-    this.searchCloseButton.style.display = "none";
-    document.getElementById('category-news').style.display = "flex";
-    this.searchWrap.classList.remove('search-active');
+    hideElements([this.searchInput, this.searchCloseButton]);
+    showElement("flex")(document.getElementById("category-news"));
+    this.searchWrap.classList.remove("search-active");
     this.searchButton.dataset.active = false;
     this.searchResults.innerHTML = " ";
     this.searchInput.value = "";
-  }
+  };
 
   getNews = inputText => {
-    new Request(EVERYTHING, { q: inputText })
-      .send()
-      .then(this.render)
-  }
+    new Request(EVERYTHING, { q: inputText }).send().then(this.render);
+  };
 
-  hideSearchResults = () => {
-    this.searchResults.style.display = 'none';
-  }
+  hideSearchResults = () => hideElement(this.searchResults);
 
-  showSearchResults = () => {
-    this.searchResults.style.display = 'block';
-  }
+  showSearchResults = () => showElement("block")(this.searchResults);
 
   render = ({ articles }) => {
     const innerHTML = articles.reduce((acc, article, i) => acc + `
@@ -69,7 +67,7 @@ class Search {
         </div>
         <div class="article-image">
           <img src=${article.urlToImage} onerror='this.classList.add('image-placeholer')'/>
-        </div> 
+        </div>
       </li>
     `, ``);
 

@@ -1,8 +1,8 @@
 import Request from "../Request";
 import { TOP_HEADLINES } from "../constants/request";
 import Banner from "./Banner";
-import Search from "./Search";
 import TopHeadlines from "./TopHeadlines";
+import { showElement } from "../utils/dom";
 
 class Navigation {
   constructor() {
@@ -37,7 +37,7 @@ class Navigation {
 
   showCategory = category => {
     Banner.hide();
-    this.categoryTitle.style.display = "block";
+    showElement('block')(this.categoryTitle)
     this.categoryTitle.className = `category-title ${category}-theme`;
     this.categoryTitle.innerHTML = category;
   };

@@ -1,6 +1,7 @@
 import { TOP_HEADLINES } from "../constants/request";
 import Request from "../Request";
 import { transformContent, transformDate } from '../utils/artilcle';
+import Search from "./Search";
 
 class TopHeadlines {
   constructor() {
