@@ -9,7 +9,7 @@ class TopHeadlines {
   }
 
   getArticles() {
-    new Request(TOP_HEADLINES).send().then(this.render);
+    new Request(TOP_HEADLINES, { country:'us' }).send().then(this.render);
   }
 
   render = ({ articles }) => {
@@ -24,7 +24,7 @@ class TopHeadlines {
           <p class="article-date">${transformDate(article.publishedAt)}</p>
         </div>
         ${i % 3 === 0 ?
-          `<div class="top-article-image">
+          `<div class="article-image">
             <img src=${article.urlToImage} onerror='this.classList.add('image-placeholer')'/>
           </div>` : ''}
       </li>

@@ -14,7 +14,7 @@ class Request {
 
   createRequestUrl(type, queries) {
     const queryString = this.createQueryString(queries);
-    console.log(type)
+
     this._url = `${REQUEST_ENDPOINTS[type]}?${queryString}`;
   }
 
@@ -23,7 +23,7 @@ class Request {
     //   (acc, query) => `${acc}&&${query[0]}=${query[1]}`,
     //   `?apiKey=${API_KEY}`
     // );
-    let str = `apiKey=${API_KEY}&country=us`;
+    let str = `apiKey=${API_KEY}&language=en`;
     
     for(let key in queries) {
       str = `${str}&${key}=${queries[key]}`

@@ -1,6 +1,7 @@
 import Request from "../Request";
 import { TOP_HEADLINES } from "../constants/request";
 import Banner from "./Banner";
+import Search from "./Search";
 import TopHeadlines from "./TopHeadlines";
 
 class Navigation {
@@ -29,7 +30,9 @@ class Navigation {
   };
 
   getNews = category => {
-    new Request(TOP_HEADLINES, { category }).send().then(TopHeadlines.render);
+    new Request(TOP_HEADLINES, { category, country: "us" })
+      .send()
+      .then(TopHeadlines.render);
   };
 
   showCategory = category => {
