@@ -74,7 +74,7 @@ class Search {
           <p class="article-date">${transformDate(article.publishedAt)}</p>
         </div>
         <div class="article-image">
-          <img src=${article.urlToImage} onerror='this.classList.add('image-placeholer')'/>
+          <img src=${article.urlToImage} onerror='console.log(this)'/>
         </div>
       </li>
     `, ``);

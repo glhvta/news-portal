@@ -2,6 +2,7 @@ import Request from "../Request";
 import { transformContent, transformDate } from '../utils/artilcle';
 import { TOP_HEADLINES, COUNTRY } from "../constants/request";
 import Search from "./Search";
+import Banner from './Banner';
 
 class TopHeadlines {
   constructor() {
@@ -30,7 +31,8 @@ class TopHeadlines {
           </div>` : ''}
       </li>
     `, ``);
-
+    
+    Banner.setBackground(articles[0].urlToImage);
     this.node.innerHTML = `<ul class="top-headlines-container">${innerHTML}</ul>`;
   };
 }
