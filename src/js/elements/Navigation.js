@@ -20,7 +20,6 @@ class Navigation {
   }
 
   handleClick = ({ target }) => {
-    console.log(target.classList)
     if (!target.classList.contains("nav-list-item")) {
       return;
     }
