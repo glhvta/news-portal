@@ -1,6 +1,7 @@
 body {
   font-family: "Lato", sans-serif;
-  padding: 40px;
+  padding-top: 40px;
+  margin: 0;
   overflow-x: hidden;
 }
 
@@ -20,9 +21,9 @@ input:focus {
 .nav {
   display: flex;
   justify-content: center;
-  height: 40px;
   position: fixed;
   top: 0;
+  left: 0;
   transition: top 0.2s ease-in-out;
   width: 100%;
   background-color: white;
@@ -66,6 +67,7 @@ input:focus {
 
 .nav-list {
   display: flex;
+  flex-wrap: wrap;
   margin: 0;
 }
 
@@ -102,7 +104,6 @@ input:focus {
   list-style: none;
   min-height: 250px;
   height: auto;
-  /* background-color: rgb(242, 242, 242); */
   color: #696969;
   font-size: 14px;
   border-bottom: 1px solid #c5c5c5;
@@ -178,8 +179,6 @@ input:focus {
 .technology-theme {
   background: #00233e;
 }
-
-/*search results*/
 .search-results {
   position: absolute;
   width: 100%;
@@ -200,9 +199,25 @@ input:focus {
 }
 
 .search-article-text {
-  padding-right: 60px
+  padding-right: 60px;
 }
 
 .search-results .article-image {
   width: 100%;
+}
+
+footer {
+  color: white;
+  padding: 40px;
+  background-color: #2b2b24;
+}
+
+footer p {
+  text-align: right;
+  font-size: 15px;
+}
+
+.attrib-link {
+  text-decoration: none;
+  color: white;
 }

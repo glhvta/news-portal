@@ -43,7 +43,7 @@ class Navigation {
   };
 
   handleScroll = e => {
-    const headerHeight = 40;
+    const headerHeight = this.node.clientHeight;
     let lastScrollTop = 0;
     let ticking = false;
 
