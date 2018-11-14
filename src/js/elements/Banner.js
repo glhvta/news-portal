@@ -1,15 +1,17 @@
+import { showElement, hideElement } from "../utils/dom";
+
 class Banner {
   constructor() {
     this.node = document.getElementById("banner");
   }
 
-  hide = () => (this.node.style.display = "none");
+  hide = () => hideElement(this.node);
 
-  show = () => (this.node.style.display = "block");
+  show = () => showElement("block")(this.node);
 
   setBackground = url => {
-    this.node.style.backgroundImage = `url(${url})`
-  }
+    this.node.style.backgroundImage = `url(${url})`;
+  };
 }
 
 export default new Banner();
