@@ -1,8 +1,7 @@
-import Request from "../Request";
-import { transformContent, transformDate } from '../utils/artilcle';
+import Request from "../services/Request";
+import { transformContent, transformDate } from "../utils/artilcle";
+import { setBannerBackground } from "./App";
 import { TOP_HEADLINES, COUNTRY } from "../constants/request";
-import Search from "./Search";
-import Banner from './Banner';
 
 class TopHeadlines {
   constructor() {
@@ -10,8 +9,11 @@ class TopHeadlines {
     this.getArticles();
   }
 
-  getArticles() {
-    new Request(TOP_HEADLINES, { [COUNTRY]: 'us' }).send().then(this.render);
+  getArticles = () => {
+    new Request(TOP_HEADLINES, 
+      { [COUNTRY]: "us" })
+      .send()
+      .then(this.render);
   }
 
   render = ({ articles }) => {
@@ -27,12 +29,12 @@ class TopHeadlines {
         </div>
         ${i % 3 === 0 ?
           `<div class="article-image">
-            <img src=${article.urlToImage} onerror='this.classList.add('image-placeholer')'/>
+            <img src=${article.urlToImage} onerror="this.style.display='none'"/>
           </div>` : ''}
       </li>
     `, ``);
-    
-    Banner.setBackground(articles[0].urlToImage);
+
+    setBannerBackground(articles[0].urlToImage);
     this.node.innerHTML = `<ul class="top-headlines-container">${innerHTML}</ul>`;
   };
 }

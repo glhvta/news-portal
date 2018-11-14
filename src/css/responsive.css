@@ -1,6 +1,13 @@
 @media screen and (max-width: 767px) {
+  body {
+    padding-top: 80px;
+  }
   .search-results-item {
     flex-flow: column;
+  }
+
+  .category-title {
+    margin: 0;
   }
 
   .search-article-text {

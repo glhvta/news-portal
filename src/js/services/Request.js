@@ -1,5 +1,4 @@
-import { API_KEY } from "./constants/request";
-import { TOP_HEADLINES, EVERYTHING } from "./constants/request";
+import { API_KEY, TOP_HEADLINES, EVERYTHING } from "../constants/request";
 
 const REQUEST_ENDPOINTS = {
   [TOP_HEADLINES]: "https://newsapi.org/v2/top-headlines",

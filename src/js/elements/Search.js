@@ -1,5 +1,6 @@
-import Request from "../Request";
+import Request from "../services/Request";
 import { EVERYTHING, Q } from "../constants/request";
+import { CategoryList } from './App';
 import { transformContent, transformDate } from "../utils/artilcle";
 import {
   hideElements,
@@ -41,13 +42,14 @@ class Search {
 
   activateSearch = () => {
     showElements("block")([this.searchInput, this.searchCloseButton]);
-    hideElement(document.getElementById("category-news"));
+    hideElement(CategoryList);
     this.searchWrap.classList.add("search-active");
   };
 
   disactivateSearch = () => {
     hideElements([this.searchInput, this.searchCloseButton]);
-    showElement("flex")(document.getElementById("category-news"));
+    showElement("flex")(CategoryList);
+
     this.searchWrap.classList.remove("search-active");
     this.searchButton.dataset.active = false;
     this.searchResults.innerHTML = " ";
@@ -74,7 +76,7 @@ class Search {
           <p class="article-date">${transformDate(article.publishedAt)}</p>
         </div>
         <div class="article-image">
-          <img src=${article.urlToImage} onerror='console.log(this)'/>
+          <img src=${article.urlToImage} onerror="this.style.display='none'"/>
         </div>
       </li>
     `, ``);
