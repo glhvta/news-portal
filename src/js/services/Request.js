@@ -10,6 +10,10 @@ class Request {
     this.createRequestUrl(type, queries);
   }
 
+  static from(type, queries) {
+    return new Request(type, queries);
+  }
+
   createRequestUrl(type, queries) {
     const queryString = this.createQueryString(queries);
 

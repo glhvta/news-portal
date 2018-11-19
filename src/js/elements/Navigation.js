@@ -32,10 +32,17 @@ class Navigation {
     this.getNews(this.category);
   };
 
-  getNews = category => {
-    new Request(TOP_HEADLINES, { [CATEGORY]: category, [COUNTRY]: "us" })
-      .send()
-      .then(renderTopHeadlines);
+  getNews = async category => {
+    try {
+      const articles = await Request.from(TOP_HEADLINES, {
+        [CATEGORY]: category,
+        [COUNTRY]: "us"
+      }).send();
+      
+      renderTopHeadlines(articles);
+    } catch (e) {
+      console.log("Error occured while getting articles ", e);
+    }
   };
 
   showCategory = category => {

@@ -9,12 +9,17 @@ class TopHeadlines {
     this.getArticles();
   }
 
-  getArticles = () => {
-    new Request(TOP_HEADLINES, 
-      { [COUNTRY]: "us" })
-      .send()
-      .then(this.render);
-  }
+  getArticles = async () => {
+    try {
+      const articles = await Request.from(TOP_HEADLINES, {
+        [COUNTRY]: "us"
+      }).send();
+      
+      this.render(articles);
+    } catch (e) {
+      console.log("Error occured while getting articles ", e);
+    }
+  };
 
   render = ({ articles }) => {
     const innerHTML = articles.reduce((acc, article, i) => acc + `
