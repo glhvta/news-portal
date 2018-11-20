@@ -18,6 +18,11 @@ input:focus {
   outline: none;
 }
 
+button:hover,
+a:hover {
+  cursor: pointer;
+}
+
 .nav {
   display: flex;
   justify-content: center;
@@ -63,6 +68,44 @@ input:focus {
 .search-close {
   display: none;
   font-size: 17px;
+}
+
+.notification {
+  background: #62c799;
+  color: white;
+  position: fixed;
+  padding: 5px 20px 20px;
+  border-radius: 8px;
+  right: 0px;
+  transform: translateX(500px);
+  transition: 0.7s;
+  z-index: 500;
+}
+
+.notification-visible {
+  transform: translateX(0);
+}
+
+.notification-input-field {
+  flex: 2;
+  border: none;
+  border-radius: 5px;
+  padding: 6px;
+  margin-right: 10px;
+}
+.notification-input-wrapper {
+  display: flex;
+}
+
+.notification-message {
+  white-space: pre-line;
+  text-align: center;
+}
+
+button.notification-input-submit-btn {
+  border: none;
+  border-radius: 50%;
+  background: white;
 }
 
 .nav-list {

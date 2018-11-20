@@ -1,6 +1,6 @@
 import Request from "../services/Request";
 import { EVERYTHING, Q } from "../constants/request";
-import { CategoryList } from './App';
+import { CategoryList } from "./App";
 import { transformContent, transformDate } from "../utils/artilcle";
 import {
   hideElements,
@@ -32,7 +32,7 @@ class Search {
       return;
     }
 
-    if(this.searchQuery === searchQuery) {
+    if (this.searchQuery === searchQuery) {
       return;
     }
 
@@ -56,8 +56,16 @@ class Search {
     this.searchInput.value = "";
   };
 
-  getNews = inputText => {
-    new Request(EVERYTHING, { [Q]: inputText }).send().then(this.render);
+  getNews = async inputText => {
+    try {
+      const articles = await Request.from(EVERYTHING, {
+        [Q]: inputText
+      }).send();
+
+      this.render(articles);
+    } catch (e) {
+      console.log("Error occured while getting articles ", e);
+    }
   };
 
   hideSearchResults = () => hideElement(this.searchResults);
@@ -65,25 +73,32 @@ class Search {
   showSearchResults = () => showElement("block")(this.searchResults);
 
   render = ({ articles }) => {
-    const innerHTML = articles.reduce((acc, article, i) => acc + `
+    const innerHTML = articles.reduce(
+      (acc, article, i) =>
+        acc +
+        `
       <li class="search-results-item">
         <div class="search-article-text">
           <a class="article-title" href='${article.url}' target="_blank">
-            ${article.title || ''}
+            ${article.title || ""}
           </a>
-          <p class="article-description">${article.description || ''}</p>
-          <p class="article-description">${transformContent(article.content)}</p>
+          <p class="article-description">${article.description || ""}</p>
+          <p class="article-description">${transformContent(
+            article.content
+          )}</p>
           <p class="article-date">${transformDate(article.publishedAt)}</p>
         </div>
         <div class="article-image">
           <img src=${article.urlToImage} onerror="this.style.display='none'"/>
         </div>
       </li>
-    `, ``);
+    `,
+      ``
+    );
 
     this.searchResults.innerHTML = `<ul class="search-results-container">${innerHTML}</ul>`;
     this.showSearchResults();
-  }
+  };
 }
 
 export default new Search();
