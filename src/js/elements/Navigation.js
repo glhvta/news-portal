@@ -1,7 +1,7 @@
 import Request from "../services/Request";
 import { hideBanner, renderTopHeadlines } from "./App";
 import { showElement } from "../utils/dom";
-import { TOP_HEADLINES, COUNTRY, CATEGORY } from "../constants/request";
+import { EVERYTHING, Q } from "../constants/request";
 
 class Navigation {
   constructor() {
@@ -34,9 +34,8 @@ class Navigation {
 
   getNews = async category => {
     try {
-      const articles = await Request.from(TOP_HEADLINES, {
-        [CATEGORY]: category,
-        [COUNTRY]: "us"
+      const articles = await Request.from(EVERYTHING, {
+        [Q]: category,
       }).send();
       
       renderTopHeadlines(articles);

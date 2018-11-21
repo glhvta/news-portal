@@ -1,7 +1,7 @@
 import Request from "../services/Request";
-import { transformContent, transformDate } from "../utils/artilcle";
+import Article from "./Article";
 import { setBannerBackground } from "./App";
-import { TOP_HEADLINES, COUNTRY } from "../constants/request";
+import { EVERYTHING, Q } from "../constants/request";
 
 class TopHeadlines {
   constructor() {
@@ -11,10 +11,10 @@ class TopHeadlines {
 
   getArticles = async () => {
     try {
-      const articles = await Request.from(TOP_HEADLINES, {
-        [COUNTRY]: "us"
+      const articles = await Request.from(EVERYTHING, {
+        [Q]: 'top-news'
       }).send();
-      
+
       this.render(articles);
     } catch (e) {
       console.log("Error occured while getting articles ", e);
@@ -22,25 +22,13 @@ class TopHeadlines {
   };
 
   render = ({ articles }) => {
-    const innerHTML = articles.reduce((acc, article, i) => acc + `
-      <li class="top-headlines-item">
-        <div class="top-article-text">
-          <a class="article-title" href='${article.url}' target="_blank">
-            ${article.title || ''}
-          </a>
-          <p class="article-description">${article.description || ''}</p>
-          <p class="article-description">${transformContent(article.content)}</p>
-          <p class="article-date">${transformDate(article.publishedAt)}</p>
-        </div>
-        ${i % 3 === 0 ?
-          `<div class="article-image">
-            <img src=${article.urlToImage} onerror="this.style.display='none'"/>
-          </div>` : ''}
-      </li>
-    `, ``);
+    const innerHTML = articles.reduce(
+      (acc, article) => acc + Article(article),
+      ``
+    );
 
     setBannerBackground(articles[0].urlToImage);
-    this.node.innerHTML = `<ul class="top-headlines-container">${innerHTML}</ul>`;
+    this.node.innerHTML = `<ul class='top-articles-container'>${innerHTML}</ul>`;
   };
 }
 

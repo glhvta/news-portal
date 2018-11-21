@@ -1,7 +1,7 @@
 import Request from "../services/Request";
 import { EVERYTHING, Q } from "../constants/request";
 import { CategoryList } from "./App";
-import { transformContent, transformDate } from "../utils/artilcle";
+import Article from "./Article";
 import {
   hideElements,
   showElement,
@@ -74,29 +74,10 @@ class Search {
 
   render = ({ articles }) => {
     const innerHTML = articles.reduce(
-      (acc, article, i) =>
-        acc +
-        `
-      <li class="search-results-item">
-        <div class="search-article-text">
-          <a class="article-title" href='${article.url}' target="_blank">
-            ${article.title || ""}
-          </a>
-          <p class="article-description">${article.description || ""}</p>
-          <p class="article-description">${transformContent(
-            article.content
-          )}</p>
-          <p class="article-date">${transformDate(article.publishedAt)}</p>
-        </div>
-        <div class="article-image">
-          <img src=${article.urlToImage} onerror="this.style.display='none'"/>
-        </div>
-      </li>
-    `,
-      ``
+      (acc, article) => acc + Article(article), ``
     );
 
-    this.searchResults.innerHTML = `<ul class="search-results-container">${innerHTML}</ul>`;
+    this.searchResults.innerHTML = `<ul class="articles-container">${innerHTML}</ul>`;
     this.showSearchResults();
   };
 }
