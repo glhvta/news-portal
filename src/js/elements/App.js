@@ -1,3 +1,5 @@
+import "../../css/app.css";
+import "../../css/responsive.css";
 import Banner from "./Banner";
 import Navigation from "./Navigation";
 import Search from "./Search";

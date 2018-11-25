@@ -3,11 +3,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: {
-    app: [require.resolve("./polyfills"), "./src/js/index.js"]
-  },
+  entry: [require.resolve("./polyfills"), "./src/js/index.js"],
   output: {
     filename: "[name].bundle.js",
+    chunkFilename: "[name].bundle.js",
     path: path.resolve(__dirname, "../dist")
   },
   resolveLoader: {
@@ -22,7 +21,10 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env"],
-            plugins: ["@babel/plugin-proposal-class-properties"]
+            plugins: [
+              "@babel/plugin-proposal-class-properties",
+              "@babel/plugin-syntax-dynamic-import"
+            ]
           }
         }
       },
