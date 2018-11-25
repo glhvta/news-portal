@@ -1,0 +1,106 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  --btn-hover: #2b2b24;
+  display: flex;
+  flex-flow: column;
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+main,
+header,
+footer {
+  display: none;
+}
+
+button:active,
+input:active,
+button:focus,
+input:focus {
+  outline: none;
+}
+
+button:hover,
+a:hover {
+  cursor: pointer;
+}
+
+.initialize-app {
+  flex: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.initialize-app-button {
+  background: transparent;
+  border: none;
+  position: relative;
+  padding: 22px 67px;
+  font-size: 22px;
+  color: var(--btn-hover);
+  letter-spacing: 17px;
+  text-transform: uppercase;
+  transition: all 600ms cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.initialize-app-button:before,
+.initialize-app-button:after {
+  content: "";
+  position: absolute;
+  transition: inherit;
+}
+
+.initialize-app-button:after {
+  bottom: 0;
+  left: 0;
+  height: 0;
+  width: 100%;
+  background: #2b2b24;
+}
+
+.initialize-app-button:before {
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 0;
+  border: 1px solid var(--btn-hover);
+  border-left: 0;
+  border-right: 0;
+}
+
+.initialize-app-button:hover {
+  color: #fff;
+  background: var(--btn-hover);
+  transition-delay: 0.6s;
+}
+
+.initialize-app-button:hover:before {
+  transition-delay: 0s;
+  left: 0;
+  width: 100%;
+}
+
+.initialize-app-button:hover:after {
+  background: var(--btn-hover);
+  transition-delay: 0.4s;
+  top: 0;
+  width: 100%;
+}

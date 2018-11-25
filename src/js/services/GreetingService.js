@@ -10,7 +10,7 @@ class GreetingService {
       message: this.greetingsQuestions.next().value,
       showInput: true
     })
-      .show(3000)
+      .show(5000)
       .then(this.showNotificationsGuide);
   };
 
@@ -41,4 +41,4 @@ function* startGreetingFlow() {
   yield "Explore the website!\n In the navigation above you\n can choose a category you want to read news about";
 }
 
-export default new GreetingService().start();
+export default new GreetingService().start;

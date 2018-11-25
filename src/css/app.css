@@ -1,26 +1,11 @@
 body {
-  font-family: "Lato", sans-serif;
+  display: block;
+  height: auto;
   padding-top: 40px;
-  margin: 0;
-  overflow-x: hidden;
 }
 
-ul,
-ol {
-  margin: 0;
-  padding: 0;
-}
-
-button:active,
-input:active,
-button:focus,
-input:focus {
-  outline: none;
-}
-
-button:hover,
-a:hover {
-  cursor: pointer;
+main, header, footer {
+  display: block;
 }
 
 .nav {
@@ -152,10 +137,6 @@ button.notification-input-submit-btn {
   border-bottom: 1px solid #c5c5c5;
 }
 
-.top-headlines-item:nth-child(6n + 1) {
-  grid-row: auto / span 2;
-}
-
 .top-headlines-item:nth-child(6n + 1) .top-article-text {
   order: 1;
 }
@@ -277,6 +258,7 @@ button.notification-input-submit-btn {
 .top-articles-container .article-image {
   order: -1;
 }
+
 
 footer {
   color: white;
