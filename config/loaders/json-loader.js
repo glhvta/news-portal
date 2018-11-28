@@ -8,8 +8,8 @@ const checkType = type => value => {
   return typeof value === type;
 };
 
-const isBoolean = checkType('boolean');
-const isString = checkType('string');
+const isBoolean = checkType("boolean");
+const isString = checkType("string");
 
 const toObject = (acc, [key, value]) => {
   acc[key] = value;
@@ -36,30 +36,34 @@ const modifyObjectValues = callback => source => {
   return Object.entries(source)
     .map(arr => callback(arr))
     .reduce(toObject, {});
-};  
-
-const modifySource = (modifications, source) => {
-  return modifications.reduceRight(
-    (acc, [func, predicate]) => {
-      return predicate() && func(acc)
-    },
-    source
-  );
 };
 
-module.exports = function(source, ...args) {
-  const options = getOptions(this);
-  const { output, reversBoolean, stringToUpperCase } = options;
+const modifySource = (modifications, source) => {
+  return modifications.reduceRight((acc, [func, predicate]) => {
+    return predicate ? func(acc) : acc;
+  }, source);
+};
+
+module.exports = function(source) {
+  const options = getOptions(this) || {};
+  const {
+    output = "./jsonFiles/[name].json",
+    reversBoolean,
+    stringToUpperCase
+  } = options;
+
   const path = interpolateName(this, output, options);
 
   const modifications = [
-    [modifyObjectValues(reversBooleanValues), () => reversBoolean],
-    [modifyObjectValues(toUpperCase), () => stringToUpperCase],
-    [getObjectWithoutNumericKeys, () => true]
+    [modifyObjectValues(reversBooleanValues), reversBoolean],
+    [modifyObjectValues(toUpperCase), stringToUpperCase],
+    [getObjectWithoutNumericKeys, true]
   ];
 
   const modifiedSource = modifySource(modifications, JSON.parse(source));
-  this.emitFile(path, modifiedSource);
+  const stringifedModifiedSource = JSON.stringify(modifiedSource);
 
-  this.callback(null, modifiedSource, ...args);
+  this.emitFile(path, stringifedModifiedSource);
+
+  return `export default ${stringifedModifiedSource}`;
 };
