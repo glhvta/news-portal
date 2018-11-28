@@ -3,14 +3,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: [require.resolve("./polyfills"), "./src/js/index.js"],
+  entry: ["./config/polyfills", "./src/js/index.js"],
   output: {
     filename: "[name].bundle.js",
     chunkFilename: "[name].bundle.js",
-    path: path.resolve(__dirname, "../dist")
-  },
-  resolveLoader: {
-    modules: ["node_modules", path.resolve(__dirname, "loaders")]
+    path: path.resolve(__dirname, "./dist")
   },
   module: {
     rules: [
@@ -32,15 +29,6 @@ module.exports = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
-      {
-        test: /\.json$/,
-        use: {
-          loader: 'json-loader',
-          options: {
-            output: "../dist/jsonFiles/[name].json"
-          }
-        }
-      }
     ]
   },
   plugins: [
