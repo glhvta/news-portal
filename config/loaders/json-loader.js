@@ -4,6 +4,13 @@ const isNumber = value => {
   return !isNaN(parseFloat(value)) && isFinite(value);
 };
 
+const checkType = type => value => {
+  return typeof value === type;
+};
+
+const isBoolean = checkType('boolean');
+const isString = checkType('string');
+
 const toObject = (acc, [key, value]) => {
   acc[key] = value;
   return acc;
@@ -11,17 +18,17 @@ const toObject = (acc, [key, value]) => {
 
 const getObjectWithoutNumericKeys = source => {
   return Object.entries(source)
-    .filter(arr => isNumber(arr[0]))
+    .filter(arr => !isNumber(arr[0]))
     .reduce(toObject, {});
 };
 
 const reversBooleanValues = ([key, value]) => {
-  const modifiedValue = value !== true && value !== false ? value : !value;
+  const modifiedValue = isBoolean(value) ? !value : value;
   return [key, modifiedValue];
 };
 
 const toUpperCase = ([key, value]) => {
-  const modifiedValue = typeof value === "string" ? value.toUpperCase() : value;
+  const modifiedValue = isString(value) ? value.toUpperCase() : value;
   return [key, modifiedValue];
 };
 
