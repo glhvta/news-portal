@@ -1,8 +1,8 @@
-import Request from "../services/Request";
+import Request from "services/Request";
 import Article from "./Article";
-import startGreetingNotification from '../services/GreetingService';
+import startGreetingNotification from 'services/GreetingService';
 import { setBannerBackground } from "./App";
-import { EVERYTHING, Q } from "../constants/request";
+import { EVERYTHING, Q } from "constants/request";
 
 class TopHeadlines {
   constructor() {

@@ -1,4 +1,4 @@
-import { transformContent, transformDate } from "../utils/artilcle";
+import { transformContent, transformDate } from "utils/artilcle";
 
 const Article = ({
   title,

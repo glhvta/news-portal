@@ -1,7 +1,7 @@
-import Request from "../services/Request";
+import Request from "services/Request";
 import { hideBanner, renderTopHeadlines } from "./App";
-import { showElement } from "../utils/dom";
-import { EVERYTHING, Q } from "../constants/request";
+import { showElement } from "utils/dom";
+import { EVERYTHING, Q } from "constants/request";
 
 class Navigation {
   constructor() {

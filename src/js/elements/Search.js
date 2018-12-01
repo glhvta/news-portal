@@ -1,5 +1,5 @@
-import Request from "../services/Request";
-import { EVERYTHING, Q } from "../constants/request";
+import Request from "services/Request";
+import { EVERYTHING, Q } from "constants/request";
 import { CategoryList } from "./App";
 import Article from "./Article";
 import {
@@ -7,7 +7,7 @@ import {
   showElement,
   showElements,
   hideElement
-} from "../utils/dom";
+} from "utils/dom";
 
 class Search {
   constructor() {

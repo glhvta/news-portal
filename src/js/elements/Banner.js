@@ -1,4 +1,4 @@
-import { showElement, hideElement } from "../utils/dom";
+import { showElement, hideElement } from "utils/dom";
 
 class Banner {
   constructor() {

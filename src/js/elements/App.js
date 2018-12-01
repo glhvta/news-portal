@@ -4,7 +4,7 @@ import Banner from "./Banner";
 import Navigation from "./Navigation";
 import Search from "./Search";
 import TopHeadlines from "./TopHeadlines";
-import GreetingService from '../services/GreetingService';
+import GreetingService from 'services/GreetingService';
 
 export const hideBanner = Banner.hide;
 

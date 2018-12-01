@@ -1,4 +1,4 @@
-import { wait } from "../utils/timers";
+import { wait } from "utils/timers";
 
 class Notification {
   constructor(settings) {
