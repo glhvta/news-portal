@@ -16,9 +16,9 @@ module.exports = merge(common, {
         test: /\.json$/,
         use: [
           {
-            loader: path.resolve("./config/loaders/json-loader.js"),
+            loader: 'json-transformer',
             options: {
-              output: "./jsonFiles/[name].json",
+              output: "./json-files/[name].json",
               reversBoolean: true,
               stringToUpperCase: true
             }
