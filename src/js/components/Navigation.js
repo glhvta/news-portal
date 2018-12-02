@@ -1,7 +1,4 @@
-import Request from "services/Request";
-import { hideBanner, renderTopHeadlines } from "./App";
 import { showElement } from "utils/dom";
-import { EVERYTHING, Q } from "constants/request";
 
 const navConfig = [
   "business",
@@ -16,47 +13,13 @@ const navConfig = [
 class Navigation {
   constructor() {
     this._node = document.getElementById("category-nav");
-    this._categoryNews = document.getElementById("category-news");
+    this.categoryNews = document.getElementById("category-news");
     this._categoryTitle = document.getElementById("category-title");
 
-    this.category = null;
-
     window.addEventListener("scroll", this.handleScroll());
-    this._categoryNews.addEventListener("click", this.handleClick);
-    this.render();
   }
-
-  get categoryList() {
-    return this._categoryNews;
-  }
-
-  handleClick = ({ target }) => {
-    if (!target.classList.contains("nav-list-item")) {
-      return;
-    }
-
-    if (this.category === target.textContent) {
-      return;
-    }
-    this.category = target.textContent;
-    this.showCategory(this.category);
-    this.getNews(this.category);
-  };
-
-  getNews = async category => {
-    try {
-      const articles = await Request.from(EVERYTHING, {
-        [Q]: category
-      }).send();
-
-      renderTopHeadlines(articles);
-    } catch (e) {
-      console.log("Error occured while getting articles ", e);
-    }
-  };
 
   showCategory = category => {
-    hideBanner();
     showElement("block")(this._categoryTitle);
     this._categoryTitle.className = `category-title ${category}-theme`;
     this._categoryTitle.innerHTML = category;
@@ -67,7 +30,7 @@ class Navigation {
       <li class="nav-list-item">${item}</li>
     `).join('');
 
-    this._categoryNews.innerHTML = innerHTML;
+    this.categoryNews.innerHTML = innerHTML;
   }
 
   handleScroll = e => {

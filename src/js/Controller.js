@@ -33,7 +33,22 @@ class Controller {
         [Q]: "top-news"
       }).send();
 
-      this.view.renderTopHeadlines(articles);
+      const topHeadlines = this.model.setArticles(articles);
+      this.view.renderTopHeadlines(topHeadlines);
+    } catch (e) {
+      console.log("Error occured while getting articles ", e);
+    }
+  };
+
+  fetchCategoryNews = async category => {
+    try {
+      const articles = await Request.from(EVERYTHING, {
+        [Q]: category
+      }).send();
+
+      const categoryNews = this.model.setArticles(articles);
+
+      this.view.renderTopHeadlines(categoryNews);
     } catch (e) {
       console.log("Error occured while getting articles ", e);
     }

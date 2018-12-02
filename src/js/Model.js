@@ -1,6 +1,5 @@
 const initialState = {
-  topHeadlines: [],
-  categoryNews: {}
+  articles: []
 };
 
 class DOMModel {
@@ -8,8 +7,9 @@ class DOMModel {
     this.state = state;
   }
 
-  setTopHeadlines(articles) {
-    this.state.topHeadlines = articles;
+  setArticles(articles) {
+    this.state.articles = articles;
+    return articles;
   }
 }
 

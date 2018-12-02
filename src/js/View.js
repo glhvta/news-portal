@@ -17,8 +17,21 @@ class DOMView extends EventEmitter {
   }
 
   initialize() {
+    const { categoryNews } = this.navigation;
+
+    categoryNews.addEventListener("click", this.onCategoryChange);
     this.navigation.render();
   }
+
+  onCategoryChange = ({ target }) => {
+    if (!target.classList.contains("nav-list-item")) {
+      return;
+    }
+
+    const category = target.textContent;
+    this.navigation.showCategory(category);
+    this.emit("GET_CATEGORY_NEWS", category);
+  };
 
   renderTopHeadlines = articles => {
     this.topHeadlines.render(articles);
