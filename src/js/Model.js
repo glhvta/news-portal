@@ -1,5 +1,6 @@
 const initialState = {
-  articles: []
+  articles: {},
+  searchResults: {}
 };
 
 class DOMModel {
@@ -9,6 +10,11 @@ class DOMModel {
 
   setArticles(articles) {
     this.state.articles = articles;
+    return articles;
+  }
+
+  setSearchResults(articles) {
+    this.state.searchResults = articles;
     return articles;
   }
 }

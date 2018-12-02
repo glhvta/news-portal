@@ -26,7 +26,7 @@ class Controller {
       this.view.on(event, callback);
     });
   }
-
+  //move to Requests factory
   fetchInitialNews = async () => {
     try {
       const articles = await Request.from(EVERYTHING, {
@@ -49,6 +49,19 @@ class Controller {
       const categoryNews = this.model.setArticles(articles);
 
       this.view.renderTopHeadlines(categoryNews);
+    } catch (e) {
+      console.log("Error occured while getting articles ", e);
+    }
+  };
+
+  searchNews = async inputText => {
+    try {
+      const articles = await Request.from(EVERYTHING, {
+        [Q]: inputText
+      }).send();
+      const searchResults = this.model.setSearchResults(articles);
+
+      this.view.search.render(searchResults);
     } catch (e) {
       console.log("Error occured while getting articles ", e);
     }
