@@ -1,4 +1,4 @@
-import Notification from "../elements/Notification";
+import Notification from "components/Notification";
 
 class GreetingService {
   constructor() {
