@@ -1,5 +1,5 @@
-import Request from "services/Request";
-import { EVERYTHING, Q } from "constants/request";
+import Request from "services/RequestService/RequestFactory";
+import { EVERYTHING, TOP_HEADLINES } from "constants/request";
 import { forEach } from "utils/helpers";
 
 class Controller {
@@ -26,45 +26,38 @@ class Controller {
       this.view.on(event, callback);
     });
   }
-  //move to Requests factory
-  fetchInitialNews = async () => {
-    try {
-      const articles = await Request.from(EVERYTHING, {
-        [Q]: "top-news"
-      }).send();
 
-      const topHeadlines = this.model.setArticles(articles);
-      this.view.renderTopHeadlines(topHeadlines);
-    } catch (e) {
-      console.log("Error occured while getting articles ", e);
-    }
+  fetchInitialNews = () => {
+    Request.create(EVERYTHING)
+      .fetchArticles("top-news")
+      .then(articles => {
+        if (articles) {
+          const topHeadlines = this.model.setArticles(articles);
+          this.view.renderTopHeadlines(topHeadlines);
+        }
+      });
   };
 
-  fetchCategoryNews = async category => {
-    try {
-      const articles = await Request.from(EVERYTHING, {
-        [Q]: category
-      }).send();
-
-      const categoryNews = this.model.setArticles(articles);
-
-      this.view.renderTopHeadlines(categoryNews);
-    } catch (e) {
-      console.log("Error occured while getting articles ", e);
-    }
+  fetchCategoryNews = category => {
+    Request.create(TOP_HEADLINES)
+      .fetchArticlesByCategory(category)
+      .then(articles => {
+        if (articles) {
+          const categoryNews = this.model.setArticles(articles);
+          this.view.renderTopHeadlines(categoryNews);
+        }
+      });
   };
 
-  searchNews = async inputText => {
-    try {
-      const articles = await Request.from(EVERYTHING, {
-        [Q]: inputText
-      }).send();
-      const searchResults = this.model.setSearchResults(articles);
-
-      this.view.search.render(searchResults);
-    } catch (e) {
-      console.log("Error occured while getting articles ", e);
-    }
+  searchNews = inputText => {
+    Request.create(EVERYTHING)
+      .fetchArticles(inputText)
+      .then(articles => {
+        if (articles) {
+          const searchResults = this.model.setSearchResults(articles);
+          this.view.search.render(searchResults);
+        }
+      });
   };
 }
 
