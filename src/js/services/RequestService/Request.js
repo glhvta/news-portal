@@ -5,6 +5,14 @@ const REQUEST_ENDPOINTS = {
   [EVERYTHING]: "https://newsapi.org/v2/everything"
 };
 
+const showErrorModal = articles => {
+  import(/* webpackChunkName: "error" */ "components/ErrorModal/index.js").then(
+    ({ default: ErrorModal }) => {
+      ErrorModal.show(articles);
+    }
+  );
+};
+
 class Request {
   constructor(type) {
     this.type = type;
@@ -35,7 +43,7 @@ class Request {
       const articles = await this.fetch();
 
       if (articles.status !== "ok") {
-        this.handleError(articles);
+        showErrorModal(articles);
       }
       return articles;
     } catch (e) {

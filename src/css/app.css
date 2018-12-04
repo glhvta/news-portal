@@ -4,7 +4,9 @@ body {
   padding-top: 40px;
 }
 
-main, header, footer {
+main,
+header,
+footer {
   display: block;
 }
 
@@ -247,18 +249,16 @@ button.notification-input-submit-btn {
 }
 
 .top-articles-container .article-text {
-  padding: 10px 0;;
+  padding: 10px 0;
 }
 
 .top-articles-container .article-title {
   padding: 10px 0;
 }
 
-
 .top-articles-container .article-image {
   order: -1;
 }
-
 
 footer {
   color: white;
