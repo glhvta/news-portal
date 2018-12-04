@@ -1,7 +1,7 @@
 import Model from "./Model";
 import View from "./View";
-import Controller from "./Controller";
+import Presenter from "./Presenter";
 
 const model = new Model();
 const view = new View();
-const controller = new Controller(view, model);
+const presenter = new Presenter(view, model);

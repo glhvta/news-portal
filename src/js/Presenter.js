@@ -2,7 +2,7 @@ import Request from "services/RequestService/RequestFactory";
 import { EVERYTHING, TOP_HEADLINES } from "constants/request";
 import { forEach } from "utils/helpers";
 
-class Controller {
+class Presenter {
   constructor(view, model) {
     this.view = view;
     this.model = model;
@@ -61,4 +61,4 @@ class Controller {
   };
 }
 
-export default Controller;
+export default Presenter;
