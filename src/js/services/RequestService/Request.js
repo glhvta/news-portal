@@ -13,9 +13,23 @@ const showErrorModal = articles => {
   );
 };
 
+const proxiedMethods = {
+  sendRequest: target =>
+    console.log(`Sending request: type - ${target.type}, url - ${target._url}`)
+};
+
 class Request {
   constructor(type) {
     this.type = type;
+
+    return new Proxy(this, {
+      get(target, prop) {
+        if (prop in proxiedMethods) {
+          proxiedMethods[prop](target);
+        }
+        return target[prop];
+      }
+    });
   }
 
   createRequestUrl(queries) {
