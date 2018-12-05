@@ -46,7 +46,7 @@ class DOMView extends EventEmitter {
       target.dataset.active = true;
       return;
     }
-    //unnessasary requests
+
     this.emit("SEARCH_NEWS", searchQuery);
   };
 

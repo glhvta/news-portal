@@ -1,9 +1,9 @@
-export function forEach (collection, callback) {
-  if(!collection) {
+export function forEach(collection, callback) {
+  if (!collection) {
     return;
   }
 
-  if(typeof collection[Symbol.iterator] === 'function') {
+  if (typeof collection[Symbol.iterator] === "function") {
     for (let value of collection) {
       callback(value);
     }
