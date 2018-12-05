@@ -1,16 +1,14 @@
 class EventEmitter {
-  constructor() {
-    this.events = {};
-  }
+  static events = {};
 
   on(type, listener) {
-    this.events[type] = this.events[type] || [];
-    this.events[type].push(listener);
+    EventEmitter.events[type] = EventEmitter.events[type] || [];
+    EventEmitter.events[type].push(listener);
   }
 
   emit(type, args) {
-    if (this.events[type]) {
-      this.events[type].forEach(listener => listener(args));
+    if (EventEmitter.events[type]) {
+      EventEmitter.events[type].forEach(listener => listener(args));
     }
   }
 }

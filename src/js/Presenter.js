@@ -1,9 +1,11 @@
 import Request from "services/RequestService/RequestFactory";
+import EventEmitter from "services/EventEmitter";
 import { EVERYTHING, TOP_HEADLINES } from "constants/request";
 import { forEach } from "utils/helpers";
 
-class Presenter {
+class Presenter extends EventEmitter {
   constructor(view, model) {
+    super();
     this.view = view;
     this.model = model;
 
@@ -23,7 +25,7 @@ class Presenter {
     };
 
     forEach(config, (event, callback) => {
-      this.view.on(event, callback);
+      this.on(event, callback);
     });
   }
 
