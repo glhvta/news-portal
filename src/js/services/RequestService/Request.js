@@ -14,7 +14,7 @@ const showErrorModal = articles => {
 };
 
 const proxiedMethods = {
-  sendRequest: target =>
+  sendRequest: (target, args) =>
     console.log(`Sending request: type - ${target.type}, url - ${target._url}`)
 };
 
@@ -24,10 +24,14 @@ class Request {
 
     return new Proxy(this, {
       get(target, prop) {
-        if (prop in proxiedMethods) {
-          proxiedMethods[prop](target);
-        }
-        return target[prop];
+        return prop in proxiedMethods
+          ? new Proxy(target[prop], {
+              apply: (target, thisArg, args) => {
+                proxiedMethods[prop](thisArg, args);
+                return target.apply(thisArg, args);
+              }
+            })
+          : target[prop];
       }
     });
   }
