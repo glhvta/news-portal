@@ -13,25 +13,16 @@ const showErrorModal = articles => {
   );
 };
 
-const proxiedMethods = {
-  sendRequest: (target, args) =>
-    console.log(`Sending request: type - ${target.type}, url - ${target._url}`)
-};
-
 class Request {
   constructor(type) {
     this.type = type;
 
-    return new Proxy(this, {
-      get(target, prop) {
-        return prop in proxiedMethods
-          ? new Proxy(target[prop], {
-              apply: (target, thisArg, args) => {
-                proxiedMethods[prop](thisArg, args);
-                return target.apply(thisArg, args);
-              }
-            })
-          : target[prop];
+    this.sendRequest = new Proxy(this.sendRequest, {
+      apply: (target, thisArg, args) => {
+        console.log(
+          `Sending request: type - ${thisArg.type}, url - ${thisArg._url}`
+        );
+        return target.apply(thisArg, args);
       }
     });
   }
